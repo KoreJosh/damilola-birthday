@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#160b18">
+<title>For Oluwadmilola — With Love</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,400;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#070507;--cream:#f8f1e8;--gold:#d6a84f;--purple:#6f2468}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;background:var(--bg);color:white;font-family:Georgia,"Times New Roman",serif;overflow:hidden}
+#story{position:relative;width:100%;height:100svh;overflow:hidden;background:#070507}
+
+/* ambient drifting light accents for a romantic, cinematic feel */
+.glow{position:fixed;z-index:1;border-radius:50%;filter:blur(60px);pointer-events:none;opacity:.35;mix-blend-mode:screen}
+.glow.g1{width:340px;height:340px;background:var(--purple);top:-8%;left:-10%;animation:driftA 22s ease-in-out infinite}
+.glow.g2{width:260px;height:260px;background:var(--gold);bottom:-6%;right:-8%;animation:driftB 26s ease-in-out infinite}
+.glow.g3{width:200px;height:200px;background:var(--purple);top:55%;left:70%;animation:driftC 30s ease-in-out infinite}
+@keyframes driftA{0%,100%{transform:translate(0,0)}50%{transform:translate(60px,40px)}}
+@keyframes driftB{0%,100%{transform:translate(0,0)}50%{transform:translate(-50px,-30px)}}
+@keyframes driftC{0%,100%{transform:translate(0,0)}50%{transform:translate(-40px,50px)}}
+
+.slide{position:absolute;inset:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;overflow:hidden;background:#070507;opacity:0;visibility:hidden;transform:translateX(100%);transition:transform 1.35s cubic-bezier(.77,0,.18,1),opacity 1.1s ease,visibility 0s linear 1.35s;will-change:transform,opacity}
+.slide.active{opacity:1;visibility:visible;transform:translateX(0);z-index:2;transition-delay:0s}
+.slide.prev{opacity:0;visibility:visible;transform:translateX(-100%);z-index:1;transition-delay:0s}
+
+.slide img{width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.08);transition:transform 7s cubic-bezier(.2,.65,.25,1);will-change:transform}
+.slide.active img{transform:scale(1)}
+.slide:not(.photo):not(.letter) img{object-fit:contain;transform:scale(1.025)}
+.slide.active:not(.photo):not(.letter) img{transform:scale(1)}
+
+/* Ken Burns direction variants — cycled across photo slides for variety */
+.slide.photo img{transform-origin:50% 50%}
+.slide.kb-1 img{transform-origin:20% 30%}
+.slide.kb-2 img{transform-origin:80% 25%}
+.slide.kb-3 img{transform-origin:30% 75%}
+.slide.kb-4 img{transform-origin:75% 70%}
+.slide.kb-5 img{transform-origin:50% 20%}
+.slide.kb-6 img{transform-origin:15% 55%}
+.slide.kb-7 img{transform-origin:85% 55%}
+.slide.kb-8 img{transform-origin:50% 85%}
+.slide.photo img{transform:scale(1.14)}
+.slide.photo.active img{transform:scale(1)}
+
+.slide:before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(to right,rgba(0,0,0,.18),transparent 30%,transparent 70%,rgba(0,0,0,.2)),linear-gradient(to bottom,rgba(0,0,0,.2),transparent 20%,transparent 72%,rgba(0,0,0,.58))}
+.slide:after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:radial-gradient(circle at center,transparent 35%,rgba(0,0,0,.28) 100%)}
+
+/* Romantic letter slide */
+.slide.letter{background:radial-gradient(circle at 50% 30%,rgba(111,36,104,.55),transparent 55%),linear-gradient(160deg,#0c070c,#1a0c19 60%,#0c070c)}
+.slide.letter .bg-zoom{position:absolute;inset:0;z-index:0;background:radial-gradient(circle at 50% 40%,rgba(214,168,79,.10),transparent 60%);transform:scale(1.15);transition:transform 9s cubic-bezier(.2,.65,.25,1)}
+.slide.letter.active .bg-zoom{transform:scale(1)}
+.letter-content{position:relative;z-index:3;max-width:520px;padding:0 30px;text-align:center}
+
+.letter-crown{font-family:"Playfair Display",Georgia,serif;font-size:24px;color:var(--gold);opacity:0;letter-spacing:.5em;transform:translateY(10px);margin-bottom:6px}
+.slide.letter.active .letter-crown{animation:trackIn 1.3s cubic-bezier(.2,.7,.2,1) forwards;animation-delay:.15s}
+
+.letter-rule{width:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:14px auto 18px;opacity:0}
+.slide.letter.active .letter-rule{animation:ruleIn 1.4s cubic-bezier(.2,.7,.2,1) forwards;animation-delay:.7s}
+
+.letter-content p{font-family:"Cormorant Garamond","Playfair Display",Georgia,serif;font-size:clamp(15px,2.6vw,19px);line-height:1.65;font-style:italic;font-weight:400;letter-spacing:.01em;color:var(--cream);margin:0 0 12px;opacity:0;transform:translateY(14px) scale(.98);filter:blur(5px)}
+.slide.letter.active .letter-content p{animation:lineIn 1.3s cubic-bezier(.2,.7,.2,1) forwards}
+.slide.letter.active .letter-content p:nth-of-type(1){animation-delay:1.1s}
+.slide.letter.active .letter-content p:nth-of-type(2){animation-delay:2.15s}
+.slide.letter.active .letter-content p:nth-of-type(3){animation-delay:3.2s}
+
+.letter-sign{display:block;margin-top:16px;font-family:"Playfair Display",Georgia,serif;font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);opacity:0;transform:translateY(8px)}
+.slide.letter.active .letter-sign{animation:trackIn 1.2s cubic-bezier(.2,.7,.2,1) forwards;animation-delay:4.15s}
+
+@keyframes lineIn{to{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}}
+@keyframes trackIn{0%{opacity:0;letter-spacing:.9em;transform:translateY(10px)}100%{opacity:1;letter-spacing:.5em;transform:translateY(0)}}
+@keyframes ruleIn{to{width:120px;opacity:1}}
+
+.ui{position:fixed;z-index:20;inset:0;pointer-events:none}
+.top{position:absolute;top:max(18px,env(safe-area-inset-top));left:18px;right:18px;display:flex;justify-content:space-between;align-items:center}
+.brand{font-size:11px;letter-spacing:.28em;text-transform:uppercase;opacity:.78;text-shadow:0 2px 12px rgba(0,0,0,.6)}
+.music{pointer-events:auto;border:1px solid rgba(255,255,255,.28);background:rgba(0,0,0,.32);color:#fff;border-radius:999px;padding:10px 14px;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);font:12px Arial,sans-serif;letter-spacing:.06em;cursor:pointer}
+.bottom{position:absolute;bottom:max(18px,env(safe-area-inset-bottom));left:18px;right:18px;display:flex;align-items:flex-end;justify-content:space-between}
+.hint,.counter{font:11px Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase;opacity:.68;text-shadow:0 2px 10px rgba(0,0,0,.7)}
+.counter{text-transform:none;letter-spacing:.04em}
+#progress{position:absolute;left:0;right:0;bottom:0;height:2px;background:rgba(255,255,255,.18)}
+#progress-bar{height:100%;width:0%;background:var(--gold);box-shadow:0 0 12px rgba(214,168,79,.6)}
+
+#gate{position:fixed;z-index:50;inset:0;background:radial-gradient(circle at 50% 35%,rgba(125,42,112,.45),transparent 38%),linear-gradient(145deg,#090609,#1c0c1b 55%,#090609);display:flex;align-items:center;justify-content:center;text-align:center;padding:28px}
+.gate-inner{max-width:430px}
+.crown{font-size:48px;margin-bottom:18px}
+.kicker{font:11px Arial,sans-serif;letter-spacing:.38em;text-transform:uppercase;color:var(--gold)}
+h1{font-size:clamp(42px,12vw,76px);font-weight:400;margin:12px 0 6px}
+.subtitle{font-size:18px;font-style:italic;opacity:.82;margin-bottom:30px}
+.begin{border:1px solid var(--gold);color:#fff;background:rgba(214,168,79,.12);border-radius:999px;padding:15px 28px;font:12px Arial,sans-serif;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;transition:all .3s ease}
+.begin:hover{background:rgba(214,168,79,.25);transform:translateY(-2px)}
+.note{font:11px Arial,sans-serif;opacity:.5;margin-top:18px;line-height:1.5}
+</style>
+</head>
+<body>
+
+<div id="gate">
+  <div class="gate-inner">
+    <div class="crown">♕</div>
+    <div class="kicker">A little something for</div>
+    <h1>Oluwadmilola</h1>
+    <div class="subtitle">A year of light. A woman worth celebrating.</div>
+    <button class="begin" id="begin">Tap to begin</button>
+    <div class="note">For the full experience, turn your sound on.</div>
+  </div>
+</div>
+
+<audio id="audio" loop preload="auto">
+  <source src="ordinary-by-alex-warren.mp3" type="audio/mpeg">
+</audio>
+
+<div class="glow g1"></div>
+<div class="glow g2"></div>
+<div class="glow g3"></div>
+
+<div id="story" aria-label="Birthday story">
+
+  <!-- Romantic written wish — the very first thing she sees -->
+  <section class="slide letter active">
+    <div class="bg-zoom"></div>
+    <div class="letter-content">
+      <div class="letter-crown">♡</div>
+      <div class="letter-rule"></div>
+      <p>My Oluwadmilola — another year has folded gently into forever, and somehow you only grow more beautiful within it.</p>
+      <p>Today isn't just about the day you were born. It's about every quiet, ordinary moment since that you've turned into something I never want to live without.</p>
+      <p>So here's to you, my love — to the woman who makes my whole world softer, brighter, and infinitely more worth it.</p>
+      <span class="letter-sign">Happy Birthday · I love you always</span>
+    </div>
+  </section>
+
+  <section class="slide cover"><img src="cover-start.png" alt="Happy Birthday Damilola"></section>
+
+  <section class="slide"><img src="message-1.png" alt="A birthday message for Oluwadmilola"></section>
+  <section class="slide"><img src="message-2.png" alt="A birthday message for Oluwadmilola"></section>
+  <section class="slide"><img src="message-3.png" alt="A birthday message for Oluwadmilola"></section>
+  <section class="slide"><img src="message-4.png" alt="A birthday message for Oluwadmilola"></section>
+
+  <section class="slide photo kb-1"><img src="photo-1.jpg" alt="Oluwadmilola"></section>
+  <section class="slide photo kb-2"><img src="photo-2.jpg" alt="Oluwadmilola"></section>
+  <section class="slide photo kb-3"><img src="photo-4.png" alt="Oluwadmilola"></section>
+  <section class="slide photo kb-4"><img src="photo-5.jpg" alt="Oluwadmilola"></section>
+  <section class="slide photo kb-5"><img src="photo-3.jpg" alt="Oluwadmilola"></section>
+  <section class="slide photo kb-6"><img src="photo-6.jpg" alt="Oluwadmilola"></section>
+  <section class="slide photo kb-7"><img src="photo-7.jpg" alt="Oluwadmilola"></section>
+  <section class="slide photo kb-8"><img src="photo-8.jpg" alt="Oluwadmilola"></section>
+
+  <section class="slide cover"><img src="cover-start.png" alt="Happy Birthday Damilola — I love you always"></section>
+</div>
+
+<div class="ui">
+  <div class="top">
+    <div class="brand">For Oluwadmilola · With Love</div>
+    <button class="music" id="music">♫ Music</button>
+  </div>
+  <div class="bottom">
+    <div class="hint">Swipe or tap</div>
+    <div class="counter" id="counter">1 / 15</div>
+  </div>
+  <div id="progress"><div id="progress-bar"></div></div>
+</div>
+
+<script>
+const gate=document.getElementById('gate');
+const begin=document.getElementById('begin');
+const audio=document.getElementById('audio');
+const music=document.getElementById('music');
+const counter=document.getElementById('counter');
+const progressBar=document.getElementById('progress-bar');
+const story=document.getElementById('story');
+const slides=[...document.querySelectorAll('.slide')];
+
+let current=0,timer=null,progressTimer=null,isStarted=false,touchStartX=0,touchStartY=0;
+
+const durations=slides.map((slide)=>{
+  if(slide.classList.contains('letter'))return 11000;
+  if(slide.classList.contains('cover'))return 6500;
+  if(slide.classList.contains('photo'))return 6000;
+  return 7000; // message slides
+});
+
+function playMusic(){
+  audio.play().then(()=>music.textContent='♫ Playing')
+    .catch(()=>music.textContent='♫ Tap for music');
+}
+function pauseMusic(){audio.pause();music.textContent='♫ Paused'}
+function updateCounter(){counter.textContent=`${current+1} / ${slides.length}`}
+
+function resetProgress(){
+  clearInterval(progressTimer);
+  progressBar.style.width='0%';
+  const duration=durations[current],start=performance.now();
+  progressTimer=setInterval(()=>{
+    const percent=Math.min(100,((performance.now()-start)/duration)*100);
+    progressBar.style.width=`${percent}%`;
+    if(percent>=100)clearInterval(progressTimer);
+  },50);
+}
+
+function scheduleNext(){
+  clearTimeout(timer);
+  if(!isStarted)return;
+  timer=setTimeout(()=>showSlide((current+1)%slides.length,1),durations[current]);
+}
+
+function showSlide(next,direction=1){
+  if(next<0)next=slides.length-1;
+  if(next>=slides.length)next=0;
+  if(next===current){resetProgress();scheduleNext();return;}
+
+  const old=slides[current],incoming=slides[next];
+  old.classList.remove('active');
+  old.classList.add('prev');
+  incoming.classList.remove('prev');
+  incoming.classList.add('active');
+
+  if(direction<0)incoming.style.transform='translateX(-100%)';
+  else incoming.style.transform='translateX(100%)';
+
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{
+    incoming.style.transform='translateX(0)';
+  }));
+
+  setTimeout(()=>{old.classList.remove('prev');old.style.transform='';},1400);
+  current=next;
+  updateCounter();
+  resetProgress();
+  scheduleNext();
+}
+
+begin.addEventListener('click',()=>{
+  gate.style.display='none';
+  isStarted=true;
+  playMusic();
+  updateCounter();
+  resetProgress();
+  scheduleNext();
+});
+
+music.addEventListener('click',()=>audio.paused?playMusic():pauseMusic());
+
+story.addEventListener('touchstart',e=>{
+  touchStartX=e.changedTouches[0].screenX;
+  touchStartY=e.changedTouches[0].screenY;
+},{passive:true});
+
+story.addEventListener('touchend',e=>{
+  const dx=e.changedTouches[0].screenX-touchStartX;
+  const dy=e.changedTouches[0].screenY-touchStartY;
+  if(Math.abs(dx)<45||Math.abs(dx)<Math.abs(dy))return;
+  if(dx<0)showSlide(current+1,1);
+  else showSlide(current-1,-1);
+},{passive:true});
+
+story.addEventListener('wheel',e=>{
+  if(!isStarted)return;
+  e.preventDefault();
+  if(e.deltaY>0||e.deltaX>0)showSlide(current+1,1);
+  else showSlide(current-1,-1);
+},{passive:false});
+
+window.addEventListener('keydown',e=>{
+  if(!isStarted)return;
+  if(['ArrowRight','ArrowDown',' '].includes(e.key)){e.preventDefault();showSlide(current+1,1);}
+  if(['ArrowLeft','ArrowUp'].includes(e.key)){e.preventDefault();showSlide(current-1,-1);}
+});
+
+audio.addEventListener('play',()=>music.textContent='♫ Playing');
+audio.addEventListener('pause',()=>music.textContent='♫ Paused');
+</script>
+</body>
+</html>
